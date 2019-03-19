@@ -17,15 +17,21 @@ class Board
   end
 
   def [](pos)
-
+    @rows [pos.first][pos.last]
   end
 
   def []=(pos,val)
-
+    @rows [pos.first][pos.last] = val
   end
 
-  def move_piece(color,start_pos,end_pos)
-
+  def move_piece(start_pos, end_pos) #add color agrument later
+    if NullPiece === self[end_pos]
+      self[start_pos], self[end_pos] = self[end_pos], self[start_pos]
+    elsif NullPiece === self[start_pos]
+      raise "Invalid move: no piece at start pos"
+    else
+      raise "Invalid move: piece exists at end pos"
+    end
   end
 
   def valid_pos?(pos)
