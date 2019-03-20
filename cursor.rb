@@ -1,5 +1,6 @@
 require "io/console"
 
+
 KEYMAP = {
   " " => :space,
   "h" => :left,
@@ -83,11 +84,15 @@ class Cursor
       update_pos(MOVES[key])
       return nil
     when :ctrl_c
-      Process.exit
+      Process.exit(0)
     end
   end
 
   def update_pos(diff)
-    
+    new_pos = []
+    2.times do |i| #2 is the standard length of curpose_pos
+      new_pos << cursor_pos[i] + diff[i]
+    end
+    @cursor_pos = new_pos if board.valid_pos?(new_pos)
   end
 end
